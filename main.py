@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 from discord import SyncWebhook
 
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1320442445443371118/eNKhd3hoK4zhIbQ8s6VQz9ba8h6NefB5hj9svOnRHYU0WJHXba7ha24807CQneKKDcPF"
+DISCORD_WEBHOOK_URL = ""
 
 def fetch_page_content(url):
     try:
