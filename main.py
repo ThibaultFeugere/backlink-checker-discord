@@ -1,8 +1,11 @@
 import requests
+import os
 from bs4 import BeautifulSoup
 from discord import SyncWebhook
 
-DISCORD_WEBHOOK_URL = ""
+DISCORD_WEBHOOK_URL = os.getenv("DISCORD_WEBHOOK_URL")
+if not DISCORD_WEBHOOK_URL:
+    raise ValueError("La variable d'environnement DISCORD_WEBHOOK_URL n'est pas définie.")
 
 def fetch_page_content(url):
     try:
@@ -51,15 +54,10 @@ def track_backlinks(backlinks_data):
 
 if __name__ == "__main__":
     backlinks_data = [
-         {
-            'url': 'https://example.com/page1',
-            'target_site': 'https://votresite.com/page1',
-            'anchor_text': 'Cliquez ici'
-        },
         {
-            'url': 'https://example.com/page2',
-            'target_site': 'https://votresite.com/page2',
-            'anchor_text': 'En savoir plus'
+            'url': 'https://cequejepense.fr/diversite-et-concentration-de-linformation-sur-le-web-analyser-web-francais/',
+            'target_site': 'https://rotek.fr/concentration-presse-tech-francaise-instabilite-independance/',
+            'anchor_text': 'https://rotek.fr/concentration-presse-tech-francaise-instabilite-independance/'
         }
     ]
 
