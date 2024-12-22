@@ -1,8 +1,10 @@
-# backlink-checker
-A simple tool in order to check backlinks
+# Backlink-Checker
 
-Make sure to update this variable:
+A simple tool in order to check backlinks and send results on Discord server.
+
+## Installation
 
 ```
-DISCORD_WEBHOOK_URL
+docker build -t backlink-checker .
+docker run --rm -e DISCORD_WEBHOOK_URL="DISCORD_WEBHOOK_URL" backlink-checker
 ```
