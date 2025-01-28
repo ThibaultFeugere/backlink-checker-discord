@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build the Docker image
+      run: docker build -t backlink-tracker . --file Dockerfile
+
+    - name: Run Docker Container
+      env:
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        SHEET_ID: ${{ secrets.SHEET_ID }}
+      run: |
+        docker run --rm -e DISCORD_WEBHOOK_URL=$DISCORD_WEBHOOK_URL \
+          -e SHEET_ID=$SHEET_ID \ 
+          backlink-tracker
