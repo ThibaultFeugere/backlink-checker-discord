@@ -23,5 +23,5 @@ jobs:
         SHEET_ID: ${{ secrets.SHEET_ID }}
       run: |
         docker run --rm -e DISCORD_WEBHOOK_URL=$DISCORD_WEBHOOK_URL \
-        -e SHEET_ID=$SHEET_ID \ 
+        -e SHEET_ID=$SHEET_ID \
         backlink-tracker
