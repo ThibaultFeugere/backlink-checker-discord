@@ -1,6 +1,7 @@
 import requests
 import os
 import csv
+import codecs
 from bs4 import BeautifulSoup
 from discord import SyncWebhook
 
@@ -20,7 +21,7 @@ def fetch_google_sheet(sheet_id):
         response = requests.get(GOOGLE_SHEET_CSV_URL.format(sheet_id=sheet_id), timeout=10)
         response.raise_for_status()
         csv_data = response.text.splitlines()
-        reader = csv.DictReader(csv_data)
+        reader = csv.DictReader(codecs.iterdecode(csv_data, 'utf-8-sig'))  # Décodage en UTF-8
         return list(reader)
     except requests.RequestException as e:
         print(f"Erreur lors de la récupération des données de Google Sheet: {e}")
