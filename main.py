@@ -20,7 +20,7 @@ def fetch_google_sheet(sheet_id):
     try:
         response = requests.get(GOOGLE_SHEET_CSV_URL.format(sheet_id=sheet_id), timeout=10)
         response.raise_for_status()
-        csv_data = response.text
+        csv_data = response.content.decode('utf-8-sig')
         reader = csv.DictReader(io.StringIO(csv_data))
         return list(reader)
     except requests.RequestException as e:
