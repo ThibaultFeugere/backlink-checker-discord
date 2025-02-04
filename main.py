@@ -65,9 +65,9 @@ def track_backlinks(backlinks):
         backlink_found, anchor_found, is_nofollow = find_backlink(html_content, target_site, anchor_text)
 
         if not backlink_found:
-            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} n'est pas trouvée sur l'ancre {anchor_text}.")
+            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} n'est pas trouvée sur l'ancre **{anchor_text}**.")
         elif not anchor_found:
-            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} est trouvée mais pas l'ancre {anchor_text}.")
+            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} est trouvée mais pas l'ancre **{anchor_text}**.")
         elif is_nofollow:
             webhook.send(f"- Backlink invalide sur {url}. Le lien {target_site} sur l'ancre **{anchor_text}** est en **nofollow**.")
     webhook.send(f":white_check_mark: Vérification des backlinks terminée ██████████ (100%)")
