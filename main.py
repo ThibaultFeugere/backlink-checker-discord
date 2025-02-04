@@ -1,6 +1,7 @@
 import requests
 import os
 import csv
+import io
 from bs4 import BeautifulSoup
 from discord import SyncWebhook
 
