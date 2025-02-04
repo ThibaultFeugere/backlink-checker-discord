@@ -1,6 +1,7 @@
 import requests
 import os
 import csv
+import io
 from bs4 import BeautifulSoup
 from discord import SyncWebhook
 
@@ -19,8 +20,8 @@ def fetch_google_sheet(sheet_id):
     try:
         response = requests.get(GOOGLE_SHEET_CSV_URL.format(sheet_id=sheet_id), timeout=10)
         response.raise_for_status()
-        csv_data = response.text.splitlines()
-        reader = csv.DictReader(csv_data)
+        csv_data = response.content.decode('utf-8-sig')
+        reader = csv.DictReader(io.StringIO(csv_data))
         return list(reader)
     except requests.RequestException as e:
         print(f"Erreur lors de la récupération des données de Google Sheet: {e}")
@@ -64,9 +65,9 @@ def track_backlinks(backlinks):
         backlink_found, anchor_found, is_nofollow = find_backlink(html_content, target_site, anchor_text)
 
         if not backlink_found:
-            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} n'est pas trouvée sur l'ancre {anchor_text}.")
+            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} n'est pas trouvée sur l'ancre **{anchor_text}**.")
         elif not anchor_found:
-            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} est trouvée mais pas l'ancre {anchor_text}.")
+            webhook.send(f"- Backlink invalide sur {url}. L'URL {target_site} est trouvée mais pas l'ancre **{anchor_text}**.")
         elif is_nofollow:
             webhook.send(f"- Backlink invalide sur {url}. Le lien {target_site} sur l'ancre **{anchor_text}** est en **nofollow**.")
     webhook.send(f":white_check_mark: Vérification des backlinks terminée ██████████ (100%)")
